@@ -1,0 +1,12 @@
+{
+    "name": "John Doe",
+    "age": 30,
+    "email": "john@example.com",
+    "addresses": [
+        {
+            "street_line_one": "123 Main St",
+            "city": "Springfield",
+            "country": "USA"
+        }
+    ]
+}
