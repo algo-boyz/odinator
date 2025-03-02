@@ -7,6 +7,7 @@
 
 - [json](./jsonx/main.odin)
 - [thread](./threadx/main.odin)
+- [Static Data Sructures](https://github.com/jakubtomsu/sds)
 
 # TODO
 
@@ -15,5 +16,6 @@
 - [Karl's Introduction to Odin ](https://zylinski.se/posts/introduction-to-odin/)
 - [Read files](https://odin-lang.org/news/read-a-file-line-by-line/)
 - [Binding to C](https://odin-lang.org/news/binding-to-c/)
+- [Graphitemaster's Odin review](https://github.com/graphitemaster/odin_review/blob/main/index.md)
 
 <p align="center">𒉭 𐱅𐰇𐰼𐰰 𖣐</p>
