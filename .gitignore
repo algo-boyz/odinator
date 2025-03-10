@@ -3,3 +3,5 @@
 **/build/
 **/ols.json
 todo/
+**/libws.a
+**/libws.lib
