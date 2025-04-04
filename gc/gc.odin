@@ -40,8 +40,8 @@ Stats :: struct {
 	collection_time: int,   // Total time spent collecting (ms)
 }
 
+// Type for custom finalizers
 Finalizer :: #type proc(obj: rawptr)
-
 warn_proc :: #type proc "c" (msg: ^c.char, value: c.ulong)
 
 @(link_prefix = "GC_")
@@ -213,6 +213,7 @@ weak_allocator :: mem.Allocator {
 	},
 }
 
+// Default configuration
 DEFAULT_CONFIG :: Config {
 	incremental = false,
 	parallel = true,
@@ -221,7 +222,6 @@ DEFAULT_CONFIG :: Config {
 	max_heap = 0, // WARN: Unlimited
 }
 
-// Initialize the GC with config options
 initialize :: proc(config := DEFAULT_CONFIG) -> runtime.Context {
 	init()
 	
