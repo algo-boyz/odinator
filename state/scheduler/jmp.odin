@@ -1,4 +1,4 @@
-package jmp
+package scheduler
 
 import "core:c/libc"
 import "core:container/queue"
@@ -59,6 +59,19 @@ anchor :: #force_inline proc(s: ^Scheduler) {
 get_paused :: proc(s: ^Scheduler) -> (timestamp: i64, ok: bool) {
 	timestamp, ok = queue.pop_front_safe(&s.queue)
 	return
+}
+
+new_scheduler :: proc() -> Scheduler {
+    return Scheduler{
+        buf = make(map[i64]libc.jmp_buf),
+        queue = queue.Queue(i64){},
+        cleanup = make([dynamic]i64),
+    }
+}
+
+destroy_scheduler :: proc(s: ^Scheduler) {
+    delete(s.buf)
+    delete(s.cleanup)
 }
 
 /*
