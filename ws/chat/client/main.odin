@@ -2,6 +2,7 @@ package main
 
 import "core:c"
 import "core:fmt"
+import "core:log"
 import "core:mem"
 import "core:net"
 import "core:os"
@@ -45,7 +46,7 @@ tws_connect :: proc(ctx: ^Ctx, ip: string, port: u16) -> (net.TCP_Socket, bool) 
     // Create socket
     socket, socket_err := net.dial_tcp_from_hostname_and_port_string(fmt.tprintf("%s:%d", ip, port))
     if socket_err != nil {
-        fmt.eprintln("Error connecting:", socket_err)
+        fmt.eprintln("Error conn:", socket_err)
         return 0, false
     }
     // Send handshake
@@ -59,7 +60,7 @@ tws_connect :: proc(ctx: ^Ctx, ip: string, port: u16) -> (net.TCP_Socket, bool) 
     // Wait for protocol switch
     bytes_read, recv_err := net.recv(socket, ctx.frm[:])
     if recv_err != nil || bytes_read <= 0 {
-        fmt.eprintln("Error receiving handshake response:", recv_err)
+        fmt.eprintln("Error receiving handshake:", recv_err)
         net.close(socket)
         return 0, false
     }
@@ -67,7 +68,7 @@ tws_connect :: proc(ctx: ^Ctx, ip: string, port: u16) -> (net.TCP_Socket, bool) 
     headers := string(ctx.frm[:bytes_read])
     end_of_headers := strings.index(headers, "\r\n\r\n")
     if end_of_headers < 0 {
-        fmt.eprintln("Invalid handshake response")
+        fmt.eprintln("Invalid handshake")
         net.close(socket)
         return 0, false
     }
@@ -305,7 +306,7 @@ receive_proc :: proc(t: ^thread.Thread) {
 
 main :: proc() {
     ctx: Ctx
-    fmt.println("Odin WebSocket Client")
+    log.info("Odin WebSocket Client")
     fmt.println("Connecting to localhost:8080...")
     socket, ok := tws_connect(&ctx, "localhost", 8080)
     if !ok {
