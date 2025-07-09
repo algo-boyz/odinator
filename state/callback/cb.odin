@@ -35,9 +35,6 @@ make_with_cleanup :: proc(
     }
 }
 
-// Creates a callback that may require cleanup.
-make :: proc { make_without_cleanup, make_with_cleanup }
-
 // Executes a callback and returns its result.
 exec_with_param :: proc(c: Callback($P, $R), param: P) -> R {
     return c.callback(c.capture, param)
